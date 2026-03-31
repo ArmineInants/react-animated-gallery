@@ -1,4 +1,4 @@
-# animated-gallery
+# react-animated-gallery
 
 Animated React gallery for multi-image collections that renders exactly three images at a time, with smooth, low-distraction slot updates.
 
@@ -20,7 +20,7 @@ Animated React gallery for multi-image collections that renders exactly three im
 ## Install
 
 ```bash
-npm install animated-gallery
+npm install react-animated-gallery
 ```
 
 Peer dependencies:
@@ -31,8 +31,8 @@ Peer dependencies:
 ## Quick start
 
 ```tsx
-import { AnimatedGallery, type GallerySlide } from 'animated-gallery';
-import 'animated-gallery/style.css';
+import { AnimatedGallery, type GallerySlide } from 'react-animated-gallery';
+import 'react-animated-gallery/style.css';
 
 const slides: GallerySlide[] = [
   { src: '/a.jpg', alt: 'A' },
