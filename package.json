@@ -1,6 +1,6 @@
 {
   "name": "react-animated-gallery",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "React image gallery and carousel: three circular slots (left, center, right), smooth slot cycling, typed theme API, CSS animations. Works with Vite and Next.js (client-only).",
   "author": "Armine Inants",
   "keywords": [

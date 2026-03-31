@@ -179,27 +179,6 @@ npm run demo
 
 This starts the demo app from `demo/`. The published package ships `dist/` only.
 
-## Before publishing
-
-Use this checklist before your first GitHub release and `npm publish`:
-
-- Verify package metadata in `package.json`: `name`, `version`, `description`, `license`, `repository`, `homepage`, `bugs`.
-- Confirm build output is current: run `npm run build`.
-- Verify what will be published: run `npm pack --dry-run` and check contents (`dist/`, `README.md`, `LICENSE`, `package.json`).
-- Validate install experience in a fresh project using the generated `.tgz` package.
-- Make sure README examples match the current API (`slides`, `theme`, and `style.css` import).
-- Ensure `.npmignore` / `files` only include intended publish artifacts.
-- Commit all changes and push to GitHub; create a release tag (for example `v0.1.0`).
-- Authenticate to npm: `npm login` and verify with `npm whoami`.
-- Publish:
-  - unscoped package: `npm publish`
-  - scoped public package: `npm publish --access public`
-
-Optional but recommended:
-
-- Keep a `CHANGELOG.md` and update it per release.
-- Consider adding a downloads badge (`npm` shields) once the package has meaningful traffic.
-
 ## License
 
 MIT
