@@ -128,13 +128,17 @@ export function AnimatedGallery({
   const n = slides.length;
   /** [leftSlideIndex, centerSlideIndex, rightSlideIndex] — matches DOM: imageLeft / imageCenter / imageRight */
   const [indices, setIndices] = useState<[number, number, number]>([0, 1, 2]);
+  const [isMounted, setIsMounted] = useState(false);
   const tickRef = useRef(0);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | undefined>(
-    undefined,
-  );
+  const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted) return;
     setIndices([0, 1, 2]);
     tickRef.current = 0;
 
@@ -146,23 +150,30 @@ export function AnimatedGallery({
       setIndices((prev) => nextIndices(prev, pos, n));
     }
 
-    const durationMs = resolveDurationMs(rootRef.current, theme?.duration);
-    const slotIntervalMs = Math.max(16, durationMs / 3);
-    const firstTickDelayMs = Math.max(16, slotIntervalMs / 6);
+    function scheduleNext(delayMs: number) {
+      timerRef.current = window.setTimeout(() => {
+        applyTick();
+        const durationMs = resolveDurationMs(rootRef.current, theme?.duration);
+        const slotIntervalMs = Math.max(16, durationMs / 3);
+        scheduleNext(slotIntervalMs);
+      }, delayMs);
+    }
 
-    const timeoutId = window.setTimeout(() => {
-      applyTick();
-      intervalRef.current = window.setInterval(applyTick, slotIntervalMs);
-    }, firstTickDelayMs);
+    const rafId = window.requestAnimationFrame(() => {
+      // Wait one paint so computed CSS vars are settled before first scheduling.
+      const settledDurationMs = resolveDurationMs(rootRef.current, theme?.duration);
+      const settledSlotIntervalMs = Math.max(16, settledDurationMs / 3);
+      scheduleNext(Math.max(16, settledSlotIntervalMs / 6));
+    });
 
     return () => {
-      window.clearTimeout(timeoutId);
-      if (intervalRef.current !== undefined) {
-        window.clearInterval(intervalRef.current);
-        intervalRef.current = undefined;
+      window.cancelAnimationFrame(rafId);
+      if (timerRef.current !== undefined) {
+        window.clearTimeout(timerRef.current);
+        timerRef.current = undefined;
       }
     };
-  }, [n, theme?.duration]);
+  }, [isMounted, n, theme?.duration]);
 
   const [il, ic, ir] = indices;
   const left = slides[il]!;
@@ -184,6 +195,7 @@ export function AnimatedGallery({
       <div
         ref={rootRef}
         data-ag-theme={scopeId}
+        data-ag-mounted={isMounted ? 'true' : 'false'}
         className={rootClass}
         style={style}
         {...rest}

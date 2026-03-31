@@ -24,6 +24,14 @@
   object-fit: cover;
 }
 
+/* In SSR apps (e.g. Next.js), CSS can render before hydration. Pause until mounted so
+   keyframes and JS timers start from the same phase. */
+.imgBlock[data-ag-mounted='false'] .imageLeft,
+.imgBlock[data-ag-mounted='false'] .imageCenter,
+.imgBlock[data-ag-mounted='false'] .imageRight {
+  animation-play-state: paused;
+}
+
 /* Responsive `--ag-*` overrides: `themeToResponsiveCss()` in theme.ts */
 
 .imageLeft {
