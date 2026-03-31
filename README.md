@@ -1,6 +1,17 @@
 # react-animated-gallery
 
-Animated React gallery for multi-image collections that renders exactly three images at a time, with smooth, low-distraction slot updates.
+[![npm version](https://img.shields.io/npm/v/react-animated-gallery.svg)](https://www.npmjs.com/package/react-animated-gallery)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+Animated React gallery for multi-image collections that renders exactly three images at a time, with smooth, low-distraction slot updates. **react-animated-gallery** is a TypeScript React component on npm: a circular three-slot image carousel with CSS-driven animation, optional theme overrides, and a bundled stylesheet (`react-animated-gallery/style.css`).
+
+## Links
+
+| Resource | URL |
+| --- | --- |
+| npm package | [react-animated-gallery](https://www.npmjs.com/package/react-animated-gallery) |
+| Source & issues | [github.com/ArmineInants/react-animated-gallery](https://github.com/ArmineInants/react-animated-gallery) |
+| Live demo | [react-animated-gallery.vercel.app](https://react-animated-gallery.vercel.app/) |
 
 ## Live demo
 
@@ -186,8 +197,8 @@ Use this checklist before your first GitHub release and `npm publish`:
 
 Optional but recommended:
 
-- Add badges (npm version, downloads, license) to README.
 - Keep a `CHANGELOG.md` and update it per release.
+- Consider adding a downloads badge (`npm` shields) once the package has meaningful traffic.
 
 ## License
 
