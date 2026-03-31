@@ -2,7 +2,9 @@
 
 Animated React gallery for multi-image collections that renders exactly three images at a time, with smooth, low-distraction slot updates.
 
-## Demo video
+## Live demo
+
+[View live demo on Vercel](https://react-animated-gallery.vercel.app/)
 
 ![Animated Gallery demo](https://raw.githubusercontent.com/ArmineInants/react-animated-gallery/main/docs/Recording_animated_gallery.gif)
 
