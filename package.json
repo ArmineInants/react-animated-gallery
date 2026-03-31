@@ -1,6 +1,6 @@
 {
   "name": "react-animated-gallery",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "React animated three-slot circular gallery (rotating spotlight) extracted from a showcase layout.",
   "keywords": [
     "react",

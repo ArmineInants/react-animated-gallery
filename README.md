@@ -46,6 +46,28 @@ export function Hero() {
 }
 ```
 
+## Next.js usage
+
+If you see timing mismatch between CSS animation and JS updates in Next.js, render the component client-only with dynamic import:
+
+```tsx
+'use client';
+
+import dynamic from 'next/dynamic';
+import 'react-animated-gallery/style.css';
+
+const AnimatedGallery = dynamic(
+  () => import('react-animated-gallery').then((mod) => mod.AnimatedGallery),
+  { ssr: false },
+);
+```
+
+Recommended in Next.js:
+
+- Keep the gallery in a client component.
+- Import `react-animated-gallery/style.css` at app-level (`app/layout.tsx`) or in your client entry where global CSS is allowed.
+- Use `ssr: false` for the gallery component if hydration timing causes visual desync.
+
 ## Props
 
 | Prop | Type | Required | Default | Description |
