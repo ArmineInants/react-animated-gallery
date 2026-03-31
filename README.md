@@ -100,7 +100,7 @@ The theme is typed as `Partial<AnimatedGalleryThemeFull>` (`AnimatedGalleryTheme
 | `easing` | `ease-in-out` | Easing function for the keyframe loop. |
 | `iteration` | `infinite` | Iteration count for the keyframe loop. |
 | `imgBlockHeight` | `220px` | Overall gallery block height. |
-| `imgBlockWidth` | `43%` | Overall gallery block width. |
+| `imgBlockWidth` | `100%` | Overall gallery block width. |
 | `slotSize` | `170.43px` | Diameter of the image circles. |
 | `offsetX` | `128px` | Horizontal offset of side slots from center. |
 | `scaleCenter` | `1.29` | Scale factor applied to the center slot. |
@@ -117,8 +117,8 @@ These override the matching base keys at breakpoints (`Laptop`, `Tablet`, `Mobil
 
 | Key | Default |
 | --- | --- |
-| `imgBlockWidthLaptop` | `40%` |
-| `imgBlockWidthTablet` | `441px` |
+| `imgBlockWidthLaptop` | `100%` |
+| `imgBlockWidthTablet` | `100%` |
 | `imgBlockWidthMobile` | `100%` |
 | `slotSizeLaptop` | `170px` |
 | `slotSizeTablet` | `170px` |

@@ -32,6 +32,23 @@ function durationToMs(value: string): number | null {
   return match[2] === 's' ? amount * 1000 : amount;
 }
 
+function resolveDurationMs(
+  root: HTMLDivElement | null,
+  themeDuration: string | undefined,
+): number {
+  if (root) {
+    // Read the resolved custom property first, so external CSS overrides stay in sync with JS.
+    const cssVarDuration = getComputedStyle(root).getPropertyValue('--ag-duration');
+    const resolvedFromCss = durationToMs(cssVarDuration);
+    if (resolvedFromCss !== null) return resolvedFromCss;
+  }
+  const resolvedFromTheme = durationToMs(
+    themeDuration ?? DEFAULT_ANIMATED_GALLERY_THEME.duration,
+  );
+  if (resolvedFromTheme !== null) return resolvedFromTheme;
+  return DEFAULT_SLOT_INTERVAL_MS * 3;
+}
+
 function slotNameToTupleIndex(
   slot: (typeof SLOT_UPDATE_SEQUENCE)[number],
 ): 0 | 1 | 2 {
@@ -115,13 +132,7 @@ export function AnimatedGallery({
   const intervalRef = useRef<ReturnType<typeof setInterval> | undefined>(
     undefined,
   );
-  const slotIntervalMs = useMemo(() => {
-    const durationMs = durationToMs(
-      theme?.duration ?? DEFAULT_ANIMATED_GALLERY_THEME.duration,
-    );
-    if (durationMs === null) return DEFAULT_SLOT_INTERVAL_MS;
-    return Math.max(16, durationMs / 3);
-  }, [theme?.duration]);
+  const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setIndices([0, 1, 2]);
@@ -135,10 +146,14 @@ export function AnimatedGallery({
       setIndices((prev) => nextIndices(prev, pos, n));
     }
 
+    const durationMs = resolveDurationMs(rootRef.current, theme?.duration);
+    const slotIntervalMs = Math.max(16, durationMs / 3);
+    const firstTickDelayMs = Math.max(16, slotIntervalMs / 6);
+
     const timeoutId = window.setTimeout(() => {
       applyTick();
       intervalRef.current = window.setInterval(applyTick, slotIntervalMs);
-    }, slotIntervalMs/6);
+    }, firstTickDelayMs);
 
     return () => {
       window.clearTimeout(timeoutId);
@@ -147,7 +162,7 @@ export function AnimatedGallery({
         intervalRef.current = undefined;
       }
     };
-  }, [n, slotIntervalMs]);
+  }, [n, theme?.duration]);
 
   const [il, ic, ir] = indices;
   const left = slides[il]!;
@@ -167,6 +182,7 @@ export function AnimatedGallery({
     <>
       <style dangerouslySetInnerHTML={{ __html: scopedCss }} />
       <div
+        ref={rootRef}
         data-ag-theme={scopeId}
         className={rootClass}
         style={style}
