@@ -4,7 +4,7 @@ Animated React gallery for multi-image collections that renders exactly three im
 
 ## Demo video
 
-![Animated Gallery demo](https://raw.githubusercontent.com/ArmineInants/react-animated-gallery/main/docs/Recording-animated-gallery.gif)
+![Animated Gallery demo](https://raw.githubusercontent.com/ArmineInants/react-animated-gallery/main/docs/Recording_animated_gallery.gif)
 
 ## Why this gallery is unique
 
