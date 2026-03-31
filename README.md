@@ -4,9 +4,7 @@ Animated React gallery for multi-image collections that renders exactly three im
 
 ## Demo video
 
-<video src="docs/Recording_animated_gallery.mp4" controls muted playsinline width="100%" autoplay>
-  Your browser does not support the video tag.
-</video>
+![Animated Gallery demo](https://raw.githubusercontent.com/ArmineInants/react-animated-gallery/main/docs/Recording-animated-gallery.gif)
 
 ## Why this gallery is unique
 
