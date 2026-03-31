@@ -1,0 +1,6 @@
+# Only `dist` is published via package.json "files"; this file is an extra guardrail.
+demo/
+src/
+vite.config.ts
+tsconfig.json
+Specialness/
