@@ -1,6 +1,6 @@
 {
   "name": "react-animated-gallery",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "React image gallery and carousel: three circular slots (left, center, right), smooth slot cycling, typed theme API, CSS animations. Works with Vite and Next.js (client-only).",
   "author": "Armine Inants",
   "keywords": [
@@ -50,7 +50,10 @@
     "./style.css": "./dist/animated-gallery.css"
   },
   "files": [
-    "dist"
+    "dist", 
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
   ],
   "scripts": {
     "build": "vite build",
