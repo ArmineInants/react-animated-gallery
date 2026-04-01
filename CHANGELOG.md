@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.8] - 2026-04-01
+
+### Fixed
+- Prevent CSS/JS animation drift after tab switching by handling `visibilitychange` and restarting the gallery timing loop when the tab becomes visible again.
+- Force a fresh animation phase on tab return so keyframes and slide index updates re-enter in sync.
+
 ## [0.1.4] - 2026-03-31
 
 ### Docs

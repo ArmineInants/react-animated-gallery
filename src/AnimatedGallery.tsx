@@ -129,16 +129,38 @@ export function AnimatedGallery({
   /** [leftSlideIndex, centerSlideIndex, rightSlideIndex] — matches DOM: imageLeft / imageCenter / imageRight */
   const [indices, setIndices] = useState<[number, number, number]>([0, 1, 2]);
   const [isMounted, setIsMounted] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [syncEpoch, setSyncEpoch] = useState(0);
   const tickRef = useRef(0);
   const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const rootRef = useRef<HTMLDivElement>(null);
+  const visibleRef = useRef(true);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
   useEffect(() => {
-    if (!isMounted) return;
+    function onVisibilityChange() {
+      const nextVisible = !document.hidden;
+      const prevVisible = visibleRef.current;
+      visibleRef.current = nextVisible;
+      setIsVisible(nextVisible);
+      // When returning to a visible tab, force a fresh phase for both CSS and JS.
+      if (nextVisible && !prevVisible) {
+        setSyncEpoch((v) => v + 1);
+      }
+    }
+
+    visibleRef.current = !document.hidden;
+    setIsVisible(visibleRef.current);
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    return () =>
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted || !isVisible) return;
     setIndices([0, 1, 2]);
     tickRef.current = 0;
 
@@ -163,7 +185,7 @@ export function AnimatedGallery({
       // Wait one paint so computed CSS vars are settled before first scheduling.
       const settledDurationMs = resolveDurationMs(rootRef.current, theme?.duration);
       const settledSlotIntervalMs = Math.max(16, settledDurationMs / 3);
-      scheduleNext(Math.max(16, settledSlotIntervalMs / 6));
+      scheduleNext(Math.max(16, settledSlotIntervalMs / 8));
     });
 
     return () => {
@@ -173,7 +195,7 @@ export function AnimatedGallery({
         timerRef.current = undefined;
       }
     };
-  }, [isMounted, n, theme?.duration]);
+  }, [isMounted, isVisible, n, syncEpoch, theme?.duration]);
 
   const [il, ic, ir] = indices;
   const left = slides[il]!;
@@ -193,9 +215,11 @@ export function AnimatedGallery({
     <>
       <style dangerouslySetInnerHTML={{ __html: scopedCss }} />
       <div
+        key={syncEpoch}
         ref={rootRef}
         data-ag-theme={scopeId}
         data-ag-mounted={isMounted ? 'true' : 'false'}
+        data-ag-visible={isVisible ? 'true' : 'false'}
         className={rootClass}
         style={style}
         {...rest}
