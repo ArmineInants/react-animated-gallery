@@ -82,7 +82,7 @@ export default function App() {
               </p>
             </div>
             <div className={s.inlineDemo}>
-              <AnimatedGallery slides={slides} />
+              <AnimatedGallery slides={slides} ariaLabel="Featured photos" />
             </div>
           </div>
         </div>

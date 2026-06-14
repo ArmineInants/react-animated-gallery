@@ -85,6 +85,7 @@ Recommended in Next.js:
 | --- | --- | --- | --- | --- |
 | `slides` | `GallerySlide[]` | Yes | - | Slide data. Must contain at least 3 items. |
 | `theme` | `AnimatedGalleryTheme` | No | `DEFAULT_ANIMATED_GALLERY_THEME` | Theme overrides for colors, timing, sizes, shadows, opacity, borders, **border radius**, z-index, and responsive variants. |
+| `ariaLabel` | `string` | No | `'Image gallery'` | Accessible name for the gallery region (`aria-label`). |
 | `className` | `string` | No | `undefined` | Extra class name applied to the root gallery element. |
 | `style` | `React.CSSProperties` | No | `undefined` | Inline styles for the root gallery element. |
 | `...rest` | `HTMLAttributes<HTMLDivElement>` | No | - | Any other valid div attributes (for example `id`, `data-*`, `aria-*`, `onClick`). |

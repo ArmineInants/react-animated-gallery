@@ -112,6 +112,8 @@ export type AnimatedGalleryProps = {
   /** At least three slides. Left / center / right show three different slides; every 3s the next slot in order (right → center → left) updates to another slide not used by the other two. */
   slides: GallerySlide[];
   theme?: AnimatedGalleryTheme;
+  /** Accessible name for the gallery region. */
+  ariaLabel?: string;
 } & Omit<HTMLAttributes<HTMLDivElement>, 'children'>;
 
 export function AnimatedGallery({
@@ -119,6 +121,7 @@ export function AnimatedGallery({
   className,
   theme,
   style,
+  ariaLabel = 'Image gallery',
   ...rest
 }: AnimatedGalleryProps) {
   if (slides.length < 3) {
@@ -220,6 +223,9 @@ export function AnimatedGallery({
         data-ag-theme={scopeId}
         data-ag-mounted={isMounted ? 'true' : 'false'}
         data-ag-visible={isVisible ? 'true' : 'false'}
+        role="region"
+        aria-roledescription="carousel"
+        aria-label={ariaLabel}
         className={rootClass}
         style={style}
         {...rest}
@@ -233,6 +239,7 @@ export function AnimatedGallery({
             alt={left.alt ?? ''}
             decoding="async"
             loading="lazy"
+            fetchPriority="low"
           />
         </div>
         <div className={styles.imageCenter}>
@@ -243,7 +250,8 @@ export function AnimatedGallery({
             sizes={center.sizes}
             alt={center.alt ?? ''}
             decoding="async"
-            loading="lazy"
+            loading="eager"
+            fetchPriority="high"
           />
         </div>
         <div className={styles.imageRight}>
@@ -255,6 +263,7 @@ export function AnimatedGallery({
             alt={right.alt ?? ''}
             decoding="async"
             loading="lazy"
+            fetchPriority="low"
           />
         </div>
       </div>

@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.9] - 2026-06-14
+
+### Added
+- `ariaLabel` prop and built-in carousel semantics (`role="region"`, `aria-roledescription="carousel"`).
+
+### Improved
+- Center slot loads with `loading="eager"` and `fetchPriority="high"`; side slots use `fetchPriority="low"`.
+
 ## [0.1.8] - 2026-04-01
 
 ### Fixed
